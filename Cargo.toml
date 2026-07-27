@@ -3,7 +3,7 @@ name = "libloading"
 # When bumping
 # * Don’t forget to add an entry to `src/changelog.rs`
 # * If bumping to an incompatible version, adjust the documentation in `src/lib.rs`
-version = "0.9.0"
+version = "0.8.9"
 authors = ["Simonas Kazlauskas <libloading@kazlauskas.me>"]
 license = "ISC"
 repository = "https://github.com/nagisa/rust_libloading/"
@@ -31,6 +31,9 @@ features = ["Win32_Foundation"]
 [target.'cfg(unix)'.dependencies.cfg-if]
 version = "1"
 
+[target.'cfg(target_os = "toyos")'.dependencies.toyos-abi]
+path = "../../toyos-abi"
+
 [dev-dependencies]
 libc = "0.2"
 static_assertions = "1.1"
@@ -42,7 +45,7 @@ rustdoc-args = ["--cfg", "libloading_docs"]
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = [
     'cfg(libloading_docs)',
-    'cfg(target_os, values("cygwin"))',
+    'cfg(target_os, values("cygwin", "toyos"))',
 ] }
 
 [[test]]
